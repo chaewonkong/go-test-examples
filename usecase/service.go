@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"strings"
 
 	"github.com/chaewonkong/go-test-examples/domain"
 )
@@ -31,6 +32,8 @@ func (u userService) FindAll(c context.Context) (users []domain.User, err error)
 
 // FindOne 사용자의 name으로 특정 사용자를 조회하는 메서드
 func (u userService) FindOne(c context.Context, name string) (user domain.User, err error) {
+	// 이름의 첫 글짜는 대문자로 설정
+	name = strings.Title(strings.ToLower(name))
 	user, err = u.repo.FindOne(name)
 	return
 }
