@@ -1,12 +1,11 @@
 # go-test-examples
 
-Few practices and examples about writing test in Go.
+Go에서 테스트코드를 작성하는 방법을 제안하는 예제 레포지토리입니다.
 
-This repository contains sample demonstrations about testing.
+다양한 테스트 작성 방법을 고민하고 연구합니다.
 
-## Includes
+## 포함하는 것
 
 - mocking
 - assert
-- DI with [uber-go/fx](https://uber-go.github.io/fx/)
--
+- DI: [uber-go/fx](https://uber-go.github.io/fx/)
