@@ -1,6 +1,9 @@
 package domain
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // ErrNotFound 데이터를 찾을 수 없는 경우 error
 var ErrNotFound = errors.New("Not Found")
@@ -40,6 +43,7 @@ func (u userRepositry) FindOne(name string) (result User, err error) {
 			return
 		}
 	}
+	fmt.Printf("user not found:%v", name)
 
 	// user를 찾지 못한 경우
 	err = ErrNotFound
