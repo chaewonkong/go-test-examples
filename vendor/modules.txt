@@ -24,6 +24,8 @@ github.com/stretchr/objx
 ## explicit; go 1.13
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/mock
+github.com/stretchr/testify/require
+github.com/stretchr/testify/suite
 # github.com/valyala/bytebufferpool v1.0.0
 ## explicit
 github.com/valyala/bytebufferpool

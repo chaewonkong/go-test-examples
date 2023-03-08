@@ -1,6 +1,5 @@
 # mock 코드 생성
 mock:
-	@/bin/sh -c 'echo "${GREEN}[mocking을 시작합니다.]${NC}"'
 	@unset LANG LC_ALL LC_MESSAGES \
 		&& go list -f '{{.Dir}}' ./... \
 		| tail -n +2 \
@@ -14,3 +13,8 @@ mock:
 			--note "NOTE: run 'make mocks' to update this file and generate new ones." \
 			--dir
 .PHONY: mock
+
+# tidy & vendor
+install:
+	go mod tidy && go mod vendor
+.PHONY: install

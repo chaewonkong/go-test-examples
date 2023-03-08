@@ -10,7 +10,7 @@ import (
 	"github.com/chaewonkong/go-test-examples/usecase"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-
+	"github.com/stretchr/testify/suite"
 	"gitlab.nexon.com/infraleadingtech/go-modules/_test"
 	"go.uber.org/fx"
 )
@@ -116,4 +116,37 @@ func TestFindOne_Success(t *testing.T) {
 	)
 	_app.RequireStart().RequireStop()
 
+}
+
+/*
+Test Suite를 사용하는 경우
+*/
+type FindOneTestSuite struct {
+	suite.Suite
+	_repo *mocks.UserRepository
+	_svc  usecase.UserService
+}
+
+func (suite *FindOneTestSuite) SetupTest() {
+	suite._repo = mocks.NewUserRepository(suite.Suite.T())
+	suite._svc = usecase.NewUserService(suite._repo)
+}
+
+func (suite *FindOneTestSuite) TestFindOne_Suite() {
+	t := suite.Suite.T()
+
+	t.Run("simple test", func(t *testing.T) {
+		suite._repo.EXPECT().
+			FindOne(mock.Anything).
+			Return(domain.User{}, nil)
+
+		// svc := usecase.NewUserService(suite._repo)
+		user, err := suite._svc.FindOne(context.Background(), "Leon")
+		suite.NoError(err)
+		suite.Equal(user, domain.User{})
+	})
+}
+
+func TestFindOneTestSuite(t *testing.T) {
+	suite.Run(t, new(FindOneTestSuite))
 }
