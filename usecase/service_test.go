@@ -66,12 +66,20 @@ var findOneNotFoundRepoModule = fx.Module(
 	}),
 )
 
-// TestFindOne_NotFound 사용자를 찾을 수 없는 경우 ErrNotFound 에러 발생
-func TestFindOne_NotFound(t *testing.T) {
+// TestFindOne_fx fx를 이용해 의존성을 주입하는 테스트 방식
+func TestFindOne_fx(t *testing.T) {
 	f := func(svc usecase.UserService) {
-		user, err := svc.FindOne(context.Background(), "존재하지 않는 사용자명")
-		assert.EqualError(t, err, domain.ErrNotFound.Error())
-		assert.Zero(t, user)
+		t.Run("사용자를 찾을 수 없는 경우 ErrNotFound 에러 발생", func(t *testing.T) {
+			// given
+			wrongName := "존재하지 않는 사용자명"
+
+			// when
+			user, err := svc.FindOne(context.Background(), wrongName)
+
+			// then
+			assert.EqualError(t, err, domain.ErrNotFound.Error())
+			assert.Zero(t, user)
+		})
 	}
 
 	// _test.NewForTest는 uber-go/fx에서 testing시 사용되는 방법임.
